@@ -1,5 +1,7 @@
 # Treinamento de CRUD — CITi
 
+📄 [Relatório do desafio](./RELATORIO.md)
+
 API de exemplo com um **CRUD de usuários** para o treinamento de back-end dos aspirantes.
 
 **Stack:** Node.js · Express · TypeScript · Prisma · PostgreSQL · Docker
