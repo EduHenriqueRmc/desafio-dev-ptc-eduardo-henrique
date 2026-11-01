@@ -11,6 +11,7 @@ export const findAllPlantas = async (filtros: {
     luminosidade?: Luminosidade;
     petFriendly?: boolean;
     nome?: string;
+    ordem?: "preco" | "nome"; 
 }) => {
     return await prisma.planta.findMany({
         where: {
@@ -21,6 +22,10 @@ export const findAllPlantas = async (filtros: {
                     ? undefined
                     : { contains: filtros.nome, mode: "insensitive" },
         },
+        orderBy:
+            filtros.ordem === "preco" ? { preco: "asc" }
+            : filtros.ordem === "nome" ? { nome: "asc" }
+            : undefined,
     });
 };
 

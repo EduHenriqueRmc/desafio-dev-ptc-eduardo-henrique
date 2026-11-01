@@ -99,6 +99,7 @@ export const readAllPlantas = async (req: Request, res: Response) => {
     const luminosidade = req.query.luminosidade as Luminosidade | undefined;
     const petFriendlyQuery = req.query.petFriendly;
     const nome = req.query.nome;
+    const ordem = req.query.ordem;
 
     if (luminosidade !== undefined && !Object.values(Luminosidade).includes(luminosidade)) {
       return res.status(400).json({
@@ -114,6 +115,10 @@ export const readAllPlantas = async (req: Request, res: Response) => {
         return res.status(400).json({ message: "O nome deve ser um texto." });
     }
 
+    if (ordem !== undefined && ordem !== "preco" && ordem !== "nome") {
+        return res.status(400).json({ message: "A ordem deve ser preco ou nome." });
+    }
+
     // Filtro não enviado continua undefined
     const petFriendly = petFriendlyQuery === undefined ? undefined : petFriendlyQuery === "true";
 
@@ -122,6 +127,7 @@ export const readAllPlantas = async (req: Request, res: Response) => {
         luminosidade: luminosidade,
         petFriendly: petFriendly,
         nome: nome,
+        ordem: ordem, 
     });
 
     return res.status(200).json(plantas);
