@@ -98,6 +98,7 @@ export const readAllPlantas = async (req: Request, res: Response) => {
     // Os filtros chegam em req.query e sempre como texto
     const luminosidade = req.query.luminosidade as Luminosidade | undefined;
     const petFriendlyQuery = req.query.petFriendly;
+    const nome = req.query.nome;
 
     if (luminosidade !== undefined && !Object.values(Luminosidade).includes(luminosidade)) {
       return res.status(400).json({
@@ -108,14 +109,19 @@ export const readAllPlantas = async (req: Request, res: Response) => {
     if (petFriendlyQuery !== undefined && petFriendlyQuery !== "true" && petFriendlyQuery !== "false") {
       return res.status(400).json({ message: "petFriendly deve ser true ou false." });
     }
+    
+    if (nome !== undefined && typeof nome !== "string") {
+        return res.status(400).json({ message: "O nome deve ser um texto." });
+    }
 
     // Filtro não enviado continua undefined
     const petFriendly = petFriendlyQuery === undefined ? undefined : petFriendlyQuery === "true";
 
     // No where do Prisma, valores undefined são ignorados
     const plantas = await PlantaRepository.findAllPlantas({
-      luminosidade: luminosidade,
-      petFriendly: petFriendly,
+        luminosidade: luminosidade,
+        petFriendly: petFriendly,
+        nome: nome,
     });
 
     return res.status(200).json(plantas);
