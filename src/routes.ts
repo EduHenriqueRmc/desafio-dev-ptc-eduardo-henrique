@@ -17,6 +17,7 @@ routes.delete("/users/:id", UserController.deleteUser);
 
 // CRUD de plantas
 routes.get("/plantas/estoque/valor-total", PlantaController.readValorTotalEstoque);
+routes.get("/plantas/esgotadas", PlantaController.readPlantasEsgotadas);
 routes.post("/plantas", PlantaController.createPlanta);
 routes.get("/plantas", PlantaController.readAllPlantas);
 routes.get("/plantas/:id", PlantaController.readPlantaById);
