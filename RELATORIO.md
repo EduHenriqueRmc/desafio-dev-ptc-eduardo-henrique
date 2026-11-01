@@ -82,7 +82,7 @@ Segui os passos sugeridos no enunciado, na ordem:
 ## 3. Principais dificuldades
 
 - **`Prisma has no exported member 'PlantaCreateInput'`.** O erro apareceu no repository porque o Prisma Client ainda não conhecia o model `Planta`. Percebi que o código estava certo e que faltava o model no schema, a migration e reiniciar o TypeScript no VS Code (`Restart TS Server`).
-- **`Cannot find name 'process'` no seed.** O TypeScript não achava os tipos do Node para o arquivo da pasta `prisma`. O `@types/node` já estava nas dependências, então o ajuste foi reiniciar o TypeScript e incluir a pasta `prisma` no `tsconfig.json`, se necessário.
+- **`Cannot find name 'process'` no seed.** O TypeScript não achava os tipos do Node para o arquivo da pasta prisma. O @types/node já estava nas dependências, então bastou reiniciar o TypeScript no VS Code (Restart TS Server) para o erro sumir.
 - **`ts-node` não existia no projeto.** O projeto só tinha o `ts-node-dev`, que é outra ferramenta. Instalei o `tsx` para rodar o seed.
 - **`Can't reach database server at treinamento-crud-db:5432`.** Rodando `yarn seed` na minha máquina, o Prisma não resolvia o host do banco, que é o nome do container dentro da rede do Docker. A solução foi rodar o seed dentro do container (`docker compose exec server yarn seed`) ou trocar o host por `localhost` e usar a porta mapeada.
 - **`tsx: not found` no container.** O container foi construído antes de eu instalar o `tsx`, então foi preciso reconstruir a imagem (`docker compose up -d --build`).
@@ -93,7 +93,7 @@ Segui os passos sugeridos no enunciado, na ordem:
 
 Usei o **Claude** durante o desafio, para:
 
-- **Gerar código:** alguns blocos no `PlantaController.ts`e no `PlantaRepository.ts` e o script de seed.
+- **Gerar código:** alguns blocos no `PlantaController.ts` e no `PlantaRepository.ts` e o script de seed.
 - **Entender erros:** os erros do Prisma, do TypeScript e do Docker listados na seção 3.
 - **Gerar dados de teste:** os bodies JSON para cadastrar plantas.
 
